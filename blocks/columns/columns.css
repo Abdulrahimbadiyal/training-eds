@@ -17,13 +17,24 @@
 
 .columns > div > .columns-img-col img {
   display: block;
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-md);
+  object-fit: cover;
+}
+
+.columns.columns-2-cols{
+  margin-top: 3rem;
 }
 
 @media (width >= 900px) {
+  .columns.columns-2-cols > div > .columns-img-col img{
+        height: 400px;
+  }
+
   .columns > div {
     align-items: center;
     flex-direction: unset;
-    gap: 24px;
+    gap: 40px;
   }
 
   .columns > div > div {

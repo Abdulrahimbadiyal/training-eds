@@ -1,0 +1,82 @@
+.accordion {
+  max-width: 100%;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.accordion .accordion-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-m);
+  background-color: var(--background-color);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.accordion .accordion-item-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  padding: 18px 68px 18px 24px;
+  font-family: var(--heading-font-family);
+  font-weight: 600;
+  font-size: var(--heading-font-size-s);
+  line-height: 1.3;
+  cursor: pointer;
+  list-style: none;
+  transition: background-color 0.2s ease;
+}
+
+.accordion .accordion-item-label:hover {
+  background-color: var(--light-color);
+}
+
+.accordion .accordion-item-label:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
+}
+
+.accordion .accordion-item-label::-webkit-details-marker {
+  display: none;
+}
+
+/* circular +/- toggle badge (signature accent) */
+.accordion .accordion-item-label::after {
+  content: '+';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--light-color);
+  color: var(--accent-color);
+  font-size: 1.4rem;
+  line-height: 1;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.accordion .accordion-item[open] .accordion-item-label::after {
+  content: '\2212'; /* minus sign */
+  background: var(--accent-color);
+  color: #fff;
+}
+
+.accordion .accordion-item-body {
+  padding: 4px 24px 24px;
+  color: var(--dark-color);
+  font-size: var(--body-font-size-s);
+}
+
+.accordion .accordion-item-body > *:first-child {
+  margin-top: 0;
+}
+
+.accordion .accordion-item-body > *:last-child {
+  margin-bottom: 0;
+}

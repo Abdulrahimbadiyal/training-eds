@@ -5,4 +5,5 @@ LICENSE
 package.json
 package-lock.json
 test/*
+tools/preview/*
 sync-block-collection.sh

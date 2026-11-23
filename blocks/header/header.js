@@ -156,5 +156,23 @@ export default async function decorate(block) {
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
+
+  // load the sub-nav as a fragment and place it below the main nav, inside the header
+  const subnavMeta = getMetadata('subnav');
+  const subnavPath = subnavMeta
+    ? new URL(subnavMeta, window.location).pathname
+    : '/sub-nav';
+  const subnavFragment = await loadFragment(subnavPath);
+  if (subnavFragment) {
+    const subnav = document.createElement('div');
+    subnav.className = 'nav-subnav';
+    ['subnav-brand', 'subnav-sections'].forEach((c, i) => {
+      const section = subnavFragment.children[i];
+      if (section) section.classList.add(c);
+    });
+    while (subnavFragment.firstElementChild) subnav.append(subnavFragment.firstElementChild);
+    navWrapper.append(subnav);
+  }
+
   block.append(navWrapper);
 }

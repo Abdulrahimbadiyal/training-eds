@@ -38,6 +38,23 @@
 
   /* nav height */
   --nav-height: 64px;
+  --subnav-height: 52px;
+
+  /* accent */
+  --accent-color: #6d28d9;
+  --accent-hover-color: #5b21b6;
+
+  /* corner radii */
+  --radius-s: 10px;
+  --radius-m: 16px;
+  --radius-l: 28px;
+
+  /* elevation */
+  --shadow-sm: 0 1px 2px rgb(19 19 19 / 6%), 0 2px 10px rgb(19 19 19 / 7%);
+  --shadow-md: 0 10px 24px rgb(19 19 19 / 10%), 0 24px 56px rgb(19 19 19 / 12%);
+
+  /* surfaces */
+  --border-color: #e6e6e6;
 }
 
 /* fallback fonts */
@@ -85,7 +102,7 @@ body.appear {
 }
 
 header {
-  height: var(--nav-height);
+  height: calc(var(--nav-height) + var(--subnav-height));
 }
 
 header .header,
@@ -297,7 +314,7 @@ main img {
 
 /* sections */
 main > .section {
-  margin: 40px 0;
+  margin: 64px 0;
 }
 
 main > .section > div {
