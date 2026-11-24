@@ -391,3 +391,214 @@ header .nav-wrapper:has(nav[aria-expanded='true']) .nav-subnav {
     padding: 0 32px;
   }
 }
+
+/* ==========================================================================
+   WSU campaign header, scoped to pages that carry a hero-video block
+   (the /westernsydney page). Reproduces the reference's two rows floating over
+   the hero: a charcoal action bar (Students / Staff / Library + search +
+   Contact us) above a transparent main nav (white WSU lockup + nav links).
+   Other pages keep the default header untouched.
+   ========================================================================== */
+
+/* stylelint-disable no-descending-specificity -- intentional page-scoped overrides */
+
+body:has(.hero-video) header {
+  height: 0;
+}
+
+body:has(.hero-video) header .nav-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  border-bottom: none;
+}
+
+/* ---- row 1: charcoal action bar (the global nav row) ---- */
+body:has(.hero-video) header nav {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 24px;
+  height: 44px;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 0 32px;
+  background-color: #3a3537;
+}
+
+body:has(.hero-video) header nav .nav-hamburger {
+  display: none;
+  visibility: hidden;
+}
+
+/* Students / Staff / Library (mapped to the brand cell) */
+body:has(.hero-video) header .nav-brand {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 44px;
+  font-family: var(--wsu-font);
+}
+
+body:has(.hero-video) header .nav-brand .default-content-wrapper ul {
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body:has(.hero-video) header .nav-brand a {
+  color: var(--wsu-white);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* search + Contact us (mapped to the sections cell) */
+body:has(.hero-video) header nav .nav-sections {
+  display: flex;
+  visibility: visible;
+  flex: 0 0 auto;
+  align-items: stretch;
+  margin-left: auto;
+}
+
+body:has(.hero-video) header nav .nav-sections .default-content-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+}
+
+body:has(.hero-video) header nav .nav-sections ul {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body:has(.hero-video) header nav .nav-sections p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+body:has(.hero-video) header nav .nav-sections .icon-search {
+  width: 20px;
+  height: 20px;
+  margin: 0 20px;
+  filter: brightness(0) invert(1);
+}
+
+body:has(.hero-video) header nav .nav-sections p:has(a) {
+  align-items: stretch;
+}
+
+body:has(.hero-video) header nav .nav-sections a {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 24px;
+  background-color: var(--wsu-red);
+  color: var(--wsu-white);
+  font-family: var(--wsu-font);
+  font-size: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+body:has(.hero-video) header nav .nav-sections a::after {
+  content: 'Contact Us';
+  font-size: 14px;
+}
+
+body:has(.hero-video) header nav .nav-tools {
+  display: none;
+}
+
+/* ---- row 2: transparent main nav over the hero ---- */
+body:has(.hero-video) header .nav-subnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: auto;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 18px 32px;
+  background: transparent;
+  border-top: none;
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-brand {
+  flex: 0 0 auto;
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-brand img {
+  height: 44px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-sections .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin: 0;
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-sections a:any-link {
+  padding: 4px 0;
+  color: var(--wsu-white);
+  font-family: var(--wsu-font);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: none;
+  text-shadow: 0 1px 6px rgb(0 0 0 / 35%);
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-sections a:any-link::after {
+  background-color: var(--wsu-white);
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-sections a:any-link:hover {
+  color: var(--wsu-white);
+}
+
+/* ---- mobile: collapse to logo + search, hide the wide rows ---- */
+@media (width < 992px) {
+  body:has(.hero-video) header nav {
+    padding: 0 16px;
+  }
+
+  body:has(.hero-video) header .nav-brand .default-content-wrapper ul {
+    gap: 16px;
+  }
+
+  body:has(.hero-video) header .nav-subnav {
+    padding: 12px 16px;
+  }
+
+  body:has(.hero-video) header .nav-subnav .subnav-sections {
+    display: none;
+  }
+
+  body:has(.hero-video) header .nav-subnav .subnav-brand img {
+    height: 34px;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */
