@@ -1,4 +1,5 @@
-/* Scroll Slider: full-width panels that stack and slide up one by one on scroll. */
+/* Scroll Slider: full-width statement panels that stack and rise like a
+   curtain over a fixed background, mirroring the WSU rich-background sections. */
 
 .scroll-slider {
   position: relative;
@@ -8,6 +9,8 @@
 /* full-bleed: break out of the centered section column */
 .section:has(.scroll-slider-wrapper) {
   display: block;
+  padding: 0;
+  overflow-x: clip;
 }
 
 main > .section > div.scroll-slider-wrapper {
@@ -16,141 +19,312 @@ main > .section > div.scroll-slider-wrapper {
   margin: 0;
   margin-left: calc(-50vw + 50%);
   padding: 0;
+  overflow-x: clip;
 }
 
-/* each slide sticks to the top; the next one slides up over it */
+/* each slide sticks to the top; the next rises over it like a curtain */
 .scroll-slider .scroll-slider-slide {
   position: sticky;
   top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding: 80px 40px;
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   color: var(--wsu-white, #fff);
-  background: #1b1b1f;
+  background-color: #1b1b1f;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  /* lock the background to the viewport so the panel reveals it as it rises */
+  background-attachment: fixed;
 }
 
-.scroll-slider .scroll-slider-slide:not(:first-child) {
-  border-radius: 32px 32px 0 0;
-  box-shadow: 0 -24px 60px rgb(0 0 0 / 28%);
-}
-
-/* distinct opaque backgrounds so a rising slide fully covers the one below */
 .scroll-slider .scroll-slider-slide:nth-child(3n + 1) {
-  background: linear-gradient(145deg, #8a1a2f 0%, #6d1427 100%);
+  background-image: url('img/bg1.jpg');
 }
 
 .scroll-slider .scroll-slider-slide:nth-child(3n + 2) {
-  background: linear-gradient(145deg, #23232a 0%, #141418 100%);
+  background-image: url('img/bg2.webp');
 }
 
 .scroll-slider .scroll-slider-slide:nth-child(3n + 3) {
-  background: linear-gradient(145deg, #1f5066 0%, #143747 100%);
+  background-image: url('img/bg3.jpg');
 }
 
-/* three columns of content */
-.scroll-slider .scroll-slider-inner {
+/* readability scrim over the busy backgrounds */
+.scroll-slider .scroll-slider-slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgb(0 0 0 / 55%) 0%, rgb(0 0 0 / 20%) 45%, rgb(0 0 0 / 35%) 100%);
+}
+
+/* content grid: narrow text column + wide shield/headline column */
+.scroll-slider .scroll-slider-content {
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
+  grid-template-columns: minmax(240px, 340px) 1fr;
+  align-items: stretch;
+  gap: 0 40px;
+  width: 1140px;
+  max-width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 30px 20px;
 }
 
-.scroll-slider .scroll-slider-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 14px;
-  font-family: var(--wsu-font, var(--body-font-family));
-  font-size: 17px;
-  line-height: 1.5;
-  color: rgb(255 255 255 / 85%);
-
-  /* columns rise in when the slide is the one on screen */
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.scroll-slider .scroll-slider-col > *:first-child {
-  margin-top: 0;
-}
-
-.scroll-slider .scroll-slider-col :is(h1, h2, h3, h4, h5, h6) {
-  margin: 0;
-  font-family: var(--wsu-font, var(--heading-font-family));
-  font-size: clamp(36px, 4.6vw, 60px);
-  font-weight: 800;
-  line-height: 0.95;
-  text-transform: uppercase;
+/* left: description, anchored bottom-left */
+.scroll-slider .scroll-slider-left {
+  z-index: 10;
+  grid-column: 1;
+  align-self: end;
+  padding-left: 10px;
+  padding-bottom: 45px;
   color: var(--wsu-white, #fff);
 }
 
-.scroll-slider .scroll-slider-col em {
+.scroll-slider .scroll-slider-left p {
+  margin: 0 0 4px;
+  max-width: 420px;
+  font-family: var(--wsu-font, var(--body-font-family));
+  font-size: 26px;
+  font-weight: 350;
+  line-height: 32px;
+  letter-spacing: -0.3px;
+  color: var(--wsu-white, #fff);
+}
+
+.scroll-slider .scroll-slider-left .button-container {
+  margin-top: 28px;
+}
+
+.scroll-slider .scroll-slider-left .button {
+  display: inline-block;
+  padding: 16px 32px;
+  background-color: var(--wsu-orange, #ff5c5e);
+  color: var(--wsu-black, #262223);
+  font-family: var(--wsu-font, var(--body-font-family));
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* shield image, centre of the wide column */
+.scroll-slider .scroll-slider-shield {
+  position: relative;
+  z-index: 5;
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+}
+
+.scroll-slider .scroll-slider-shield picture {
+  position: relative;
+  z-index: 3;
+  display: block;
+  flex-shrink: 0;
+  overflow: hidden;
+
+  /* continuous gentle float, matching the reference shield */
+  animation: scroll-slider-float 4s ease-in-out infinite;
+
+  /* stylelint-disable property-no-vendor-prefix -- Safari needs the prefix */
+  -webkit-mask-image: url('../../icons/slider-carousel-shield-mask.svg');
+  mask-image: url('../../icons/slider-carousel-shield-mask.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  /* stylelint-enable property-no-vendor-prefix */
+}
+
+.scroll-slider .scroll-slider-shield img {
+  display: block;
+  width: 450px;
+  height: 550px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* headline, overlapping the shield to the right */
+.scroll-slider .scroll-slider-headline {
+  position: absolute;
+  left: 46%;
+  top: 25%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.scroll-slider .scroll-slider-headline h2 {
+  margin: 0;
+  font-family: var(--wsu-font, var(--heading-font-family));
+  font-size: 70px;
+  font-weight: 500;
+  line-height: 72px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--wsu-white, #fff);
+  white-space: normal;
+}
+
+.scroll-slider .scroll-slider-headline em {
+  display: block;
+  padding-left: clamp(30px, 5vw, 80px);
   font-family: var(--wsu-font-serif, georgia, serif);
   font-style: italic;
   font-weight: 400;
 }
 
-.scroll-slider .scroll-slider-col p {
-  margin: 0;
-  font-size: 17px;
-  line-height: 1.5;
-  color: rgb(255 255 255 / 85%);
+@keyframes scroll-slider-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
 }
 
-.scroll-slider .scroll-slider-col a {
-  color: var(--wsu-white, #fff);
-  font-weight: 600;
+/* ===== scroll-triggered reveal (desktop) ===== */
+@media (width >= 1220px) {
+  /* opacity only: the float animation owns the transform */
+  .scroll-slider .scroll-slider-shield picture {
+    opacity: 0;
+    transition: opacity 0.9s ease-out 0.1s;
+  }
+
+  .scroll-slider .scroll-slider-left {
+    opacity: 0;
+    transform: translateX(-120%);
+    transition: transform 0.8s ease-out 0.25s, opacity 0.7s ease-out 0.25s;
+  }
+
+  .scroll-slider .scroll-slider-headline {
+    opacity: 0;
+    transform: translateX(120%);
+    transition: transform 0.8s ease-out 0.4s, opacity 0.7s ease-out 0.4s;
+  }
+
+  .scroll-slider .scroll-slider-slide.animate-in .scroll-slider-shield picture {
+    opacity: 1;
+  }
+
+  .scroll-slider .scroll-slider-slide.animate-in .scroll-slider-left {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-slider .scroll-slider-slide.animate-in .scroll-slider-headline {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.scroll-slider .scroll-slider-col picture,
-.scroll-slider .scroll-slider-col img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 16px;
+/* ===== tablet ===== */
+@media (width > 991px) and (width < 1220px) {
+  .scroll-slider .scroll-slider-content {
+    grid-template-columns: minmax(230px, 320px) 1fr;
+    gap: 0 30px;
+    padding: 10px 30px;
+  }
+
+  .scroll-slider .scroll-slider-shield img {
+    width: 320px;
+    height: 400px;
+  }
+
+  .scroll-slider .scroll-slider-headline {
+    left: 40%;
+    top: 32%;
+  }
+
+  .scroll-slider .scroll-slider-headline h2 {
+    font-size: 40px;
+    line-height: 50px;
+  }
 }
 
-/* reveal, staggered per column */
-.scroll-slider .scroll-slider-slide.is-active .scroll-slider-col {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.scroll-slider .scroll-slider-slide.is-active .scroll-slider-col:nth-child(2) {
-  transition-delay: 0.1s;
-}
-
-.scroll-slider .scroll-slider-slide.is-active .scroll-slider-col:nth-child(3) {
-  transition-delay: 0.2s;
-}
-
-/* tablet / mobile: stack the three columns, keep the slide-up behaviour */
-@media (width < 900px) {
+/* ===== mobile: stack image, headline, text; background scrolls ===== */
+@media (width <= 991px) {
   .scroll-slider .scroll-slider-slide {
-    padding: 64px 24px;
+    background-attachment: scroll;
   }
 
-  .scroll-slider .scroll-slider-inner {
-    grid-template-columns: 1fr;
-    gap: 28px;
+  .scroll-slider .scroll-slider-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    padding: 72px 20px 40px;
   }
 
-  .scroll-slider .scroll-slider-col :is(h1, h2, h3, h4, h5, h6) {
-    font-size: clamp(32px, 9vw, 48px);
+  .scroll-slider .scroll-slider-shield {
+    order: 1;
+    flex-direction: column;
+    align-items: center;
+    align-self: auto;
+  }
+
+  .scroll-slider .scroll-slider-shield img {
+    width: 280px;
+    height: 350px;
+  }
+
+  .scroll-slider .scroll-slider-shield picture {
+    animation: none;
+  }
+
+  .scroll-slider .scroll-slider-headline {
+    position: static;
+    order: 2;
+    margin-top: 24px;
+  }
+
+  .scroll-slider .scroll-slider-headline h2 {
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 400;
+  }
+
+  .scroll-slider .scroll-slider-headline em {
+    padding-left: 0;
+  }
+
+  .scroll-slider .scroll-slider-left {
+    order: 3;
+    align-self: auto;
+    margin-top: 20px;
+    padding-left: 0;
+    padding-bottom: 0;
+  }
+
+  .scroll-slider .scroll-slider-left p {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+}
+
+/* iOS Safari ignores fixed attachment on non-body elements */
+@media (hover: none) and (pointer: coarse) {
+  .scroll-slider .scroll-slider-slide {
+    background-attachment: scroll;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-slider .scroll-slider-col {
+  .scroll-slider .scroll-slider-shield picture,
+  .scroll-slider .scroll-slider-left,
+  .scroll-slider .scroll-slider-headline {
     opacity: 1;
     transform: none;
     transition: none;
+    animation: none;
   }
 }
