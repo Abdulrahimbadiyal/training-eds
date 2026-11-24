@@ -1,0 +1,156 @@
+/* Scroll Slider: full-width panels that stack and slide up one by one on scroll. */
+
+.scroll-slider {
+  position: relative;
+  display: block;
+}
+
+/* full-bleed: break out of the centered section column */
+.section:has(.scroll-slider-wrapper) {
+  display: block;
+}
+
+main > .section > div.scroll-slider-wrapper {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  margin-left: calc(-50vw + 50%);
+  padding: 0;
+}
+
+/* each slide sticks to the top; the next one slides up over it */
+.scroll-slider .scroll-slider-slide {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 80px 40px;
+  overflow: hidden;
+  color: var(--wsu-white, #fff);
+  background: #1b1b1f;
+}
+
+.scroll-slider .scroll-slider-slide:not(:first-child) {
+  border-radius: 32px 32px 0 0;
+  box-shadow: 0 -24px 60px rgb(0 0 0 / 28%);
+}
+
+/* distinct opaque backgrounds so a rising slide fully covers the one below */
+.scroll-slider .scroll-slider-slide:nth-child(3n + 1) {
+  background: linear-gradient(145deg, #8a1a2f 0%, #6d1427 100%);
+}
+
+.scroll-slider .scroll-slider-slide:nth-child(3n + 2) {
+  background: linear-gradient(145deg, #23232a 0%, #141418 100%);
+}
+
+.scroll-slider .scroll-slider-slide:nth-child(3n + 3) {
+  background: linear-gradient(145deg, #1f5066 0%, #143747 100%);
+}
+
+/* three columns of content */
+.scroll-slider .scroll-slider-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.scroll-slider .scroll-slider-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  font-family: var(--wsu-font, var(--body-font-family));
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 85%);
+
+  /* columns rise in when the slide is the one on screen */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-slider .scroll-slider-col > *:first-child {
+  margin-top: 0;
+}
+
+.scroll-slider .scroll-slider-col :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-family: var(--wsu-font, var(--heading-font-family));
+  font-size: clamp(36px, 4.6vw, 60px);
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--wsu-white, #fff);
+}
+
+.scroll-slider .scroll-slider-col em {
+  font-family: var(--wsu-font-serif, georgia, serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.scroll-slider .scroll-slider-col p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 85%);
+}
+
+.scroll-slider .scroll-slider-col a {
+  color: var(--wsu-white, #fff);
+  font-weight: 600;
+}
+
+.scroll-slider .scroll-slider-col picture,
+.scroll-slider .scroll-slider-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+/* reveal, staggered per column */
+.scroll-slider .scroll-slider-slide.is-active .scroll-slider-col {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-slider .scroll-slider-slide.is-active .scroll-slider-col:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.scroll-slider .scroll-slider-slide.is-active .scroll-slider-col:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+/* tablet / mobile: stack the three columns, keep the slide-up behaviour */
+@media (width < 900px) {
+  .scroll-slider .scroll-slider-slide {
+    padding: 64px 24px;
+  }
+
+  .scroll-slider .scroll-slider-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .scroll-slider .scroll-slider-col :is(h1, h2, h3, h4, h5, h6) {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-slider .scroll-slider-col {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
