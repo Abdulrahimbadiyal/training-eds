@@ -185,27 +185,46 @@ main:has(.hero-video) .cards .cards-card-body p:has(a) {
 }
 
 main:has(.hero-video) .cards .cards-card-body a {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   width: 249px;
   max-width: 100%;
   height: 49px;
   padding: 0 32px;
-  border-radius: 999px;
-  background-color: var(--wsu-red);
+  border-radius: 32px;
+  background-color: var(--wsu-accent-red);
   color: var(--wsu-white);
   font-family: var(--wsu-font);
   font-size: 16px;
   font-weight: 400;
   text-decoration: none;
   text-transform: none;
-  transition: opacity 0.2s ease;
+  transition: color 0.3s ease;
+}
+
+/* black fill wipes across on hover, matching the reference button */
+main:has(.hero-video) .cards .cards-card-body a::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 0;
+  height: 100%;
+  background-color: var(--wsu-black);
+  transition: width 0.3s ease;
 }
 
 main:has(.hero-video) .cards .cards-card-body a:hover {
-  opacity: 0.9;
   color: var(--wsu-white);
+}
+
+main:has(.hero-video) .cards .cards-card-body a:hover::after {
+  width: 100%;
 }
 
 @media (width >= 768px) {

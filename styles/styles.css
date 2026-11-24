@@ -206,6 +206,8 @@ p.button-wrapper {
 a.button:any-link,
 button.button {
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -222,6 +224,35 @@ button.button {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* site-wide hover: a fill slides in from the left on every button */
+a.button:any-link::after,
+button.button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 0;
+  background-color: var(--wsu-black, #131313);
+  transition: width 0.3s ease;
+}
+
+a.button:any-link:hover,
+a.button:any-link:focus-visible,
+button.button:hover,
+button.button:focus-visible {
+  color: var(--wsu-white, #fff);
+}
+
+a.button:any-link:hover::after,
+a.button:any-link:focus-visible::after,
+button.button:hover::after,
+button.button:focus-visible::after {
+  width: 100%;
 }
 
 a.button[aria-disabled="true"],
