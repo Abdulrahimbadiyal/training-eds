@@ -38,6 +38,39 @@
 
   /* nav height */
   --nav-height: 64px;
+  --subnav-height: 52px;
+
+  /* accent */
+  --accent-color: #6d28d9;
+  --accent-hover-color: #5b21b6;
+
+  /* corner radii */
+  --radius-s: 10px;
+  --radius-m: 16px;
+  --radius-l: 28px;
+
+  /* elevation */
+  --shadow-sm: 0 1px 2px rgb(19 19 19 / 6%), 0 2px 10px rgb(19 19 19 / 7%);
+  --shadow-md: 0 10px 24px rgb(19 19 19 / 10%), 0 24px 56px rgb(19 19 19 / 12%);
+
+  /* surfaces */
+  --border-color: #e6e6e6;
+
+  /* WSU brand colors (opt-in; used by the WSU campaign blocks) */
+  --wsu-crimson: #903;
+  --wsu-white: #fff;
+  --wsu-black: #262223;
+  --wsu-orange: #ff5c5e;
+  --wsu-red: #ed0033;
+  --wsu-accent-red: #f03;
+  --wsu-off-white: #f2f2f2;
+  --wsu-mid-gray: #898687;
+  --wsu-pathway-background: #f0f0f0;
+
+  /* WSU brand type stacks (opt-in; these do not change the site defaults) */
+  --wsu-font: 'Gotham Narrow A', 'Arial Narrow', arial, sans-serif;
+  --wsu-font-book: 'Gotham Narrow Book', 'Arial Narrow', arial, sans-serif;
+  --wsu-font-serif: 'Chronicle Text G1 A', georgia, serif;
 }
 
 /* fallback fonts */
@@ -85,7 +118,7 @@ body.appear {
 }
 
 header {
-  height: var(--nav-height);
+  height: calc(var(--nav-height) + var(--subnav-height));
 }
 
 header .header,
@@ -297,7 +330,7 @@ main img {
 
 /* sections */
 main > .section {
-  margin: 40px 0;
+  margin: 64px 0;
 }
 
 main > .section > div {
@@ -323,3 +356,102 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+/* ==========================================================================
+   Western Sydney University brand foundation.
+   Fonts (Gotham Narrow + Chronicle Text) and WSU color tokens.
+   Additive only: nothing here changes the existing site defaults. The WSU
+   blocks (hero-video, banner, and the page-scoped header/cards overrides)
+   opt in to these tokens, so other pages render exactly as before.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Gotham Narrow A';
+  src: url('../fonts/GothamNarrowA-400-normal.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Narrow A';
+  src: url('../fonts/GothamNarrowA-400-italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Narrow A';
+  src: url('../fonts/GothamNarrowA-500-normal.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Narrow A';
+  src: url('../fonts/GothamNarrowA-500-italic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Narrow A';
+  src: url('../fonts/GothamNarrowA-700-normal.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Narrow A';
+  src: url('../fonts/GothamNarrowA-700-italic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Narrow A';
+  src: url('../fonts/GothamNarrowA-800-normal.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham Narrow Book';
+  src:
+    url('../fonts/GothamNarrow-Book.woff2') format('woff2'),
+    url('../fonts/GothamNarrow-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chronicle Text G1 A';
+  src: url('../fonts/ChronicleTextG1A-400-normal.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chronicle Text G1 A';
+  src: url('../fonts/ChronicleTextG1A-400-italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Chronicle Text G1 A';
+  src: url('../fonts/ChronicleTextG1A-600-normal.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+

@@ -1,0 +1,315 @@
+.recommends {
+  --recommends-ink: #17171a;
+  --recommends-muted: #6f6f70;
+  --recommends-line: #e7e7e7;
+  --recommends-red: #8a1a2f;
+  --recommends-green: #257a57;
+  --recommends-vertuo: #a68a54;
+
+  margin-top: 1.5rem;
+}
+
+/* section heading that sits above the block (authored as an H2) */
+main .section:has(.recommends) h2 {
+  font-family: var(--body-font-family);
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: 2.5px;
+  color: #000;
+  margin-bottom: 32px;
+  text-transform: none;
+}
+
+/* head: tabs on the left, carousel arrows on the right */
+.recommends .recommends-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.recommends .recommends-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  min-width: 0;
+}
+
+.recommends .recommends-tab {
+  flex: 0 0 auto;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  border: 1px solid var(--recommends-line);
+  background: #fff;
+  color: #454547;
+  border-radius: 999px;
+  padding: 0 15px;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.recommends .recommends-tab:hover {
+  border-color: #999;
+}
+
+.recommends .recommends-tab.is-active {
+  border-color: var(--recommends-ink);
+  color: var(--recommends-ink);
+  font-weight: 600;
+}
+
+/* arrows */
+.recommends .recommends-nav {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
+.recommends .recommends-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--recommends-ink);
+  background: var(--recommends-ink);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.recommends .recommends-arrow:disabled {
+  background: #fff;
+  color: #c9c9c9;
+  border-color: var(--recommends-line);
+  cursor: default;
+}
+
+.recommends .recommends-arrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border: solid currentcolor;
+  border-width: 2px 2px 0 0;
+}
+
+.recommends .recommends-prev::before {
+  transform: rotate(-135deg);
+  margin-left: 3px;
+}
+
+.recommends .recommends-next::before {
+  transform: rotate(45deg);
+  margin-right: 3px;
+}
+
+/* panels + track */
+.recommends .recommends-panel {
+  display: none;
+}
+
+.recommends .recommends-panel.is-active {
+  display: block;
+}
+
+.recommends .recommends-track {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.recommends .recommends-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* card */
+.recommends .recommends-card {
+  flex: 0 0 246px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--recommends-line);
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.recommends .recommends-card-media {
+  position: relative;
+  padding: 9px;
+}
+
+.recommends .recommends-card-media picture,
+.recommends .recommends-card-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+}
+
+.recommends .recommends-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--recommends-ink);
+}
+
+.recommends .recommends-badge-vertuo {
+  background: var(--recommends-vertuo);
+}
+
+.recommends .recommends-badge-original {
+  background: var(--recommends-ink);
+}
+
+.recommends .recommends-discount {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--recommends-red);
+  color: #fff;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  line-height: 1.05;
+}
+
+.recommends .recommends-discount strong {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.recommends .recommends-discount small {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.recommends .recommends-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 4px 16px 18px;
+}
+
+.recommends .recommends-card-title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--recommends-ink);
+}
+
+.recommends .recommends-card-desc {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--recommends-muted);
+}
+
+.recommends .recommends-card-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.recommends .recommends-price {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.recommends .recommends-price-now {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--recommends-ink);
+}
+
+.recommends .recommends-price-was {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--recommends-muted);
+  text-decoration: line-through;
+}
+
+.recommends .recommends-add {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--recommends-green);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.recommends .recommends-add::before {
+  content: '+';
+}
+
+.recommends .recommends-add:hover {
+  background: #1f6548;
+  transform: scale(1.06);
+}
+
+.recommends .recommends-add:focus-visible {
+  outline: 2px solid var(--recommends-green);
+  outline-offset: 2px;
+}
+
+/* touch / small screens: hide arrows, let the tab row and track scroll */
+@media (width < 700px) {
+  main .section:has(.recommends) h2 {
+    font-size: 28px;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+  }
+
+  .recommends .recommends-nav {
+    display: none;
+  }
+
+  .recommends .recommends-tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .recommends .recommends-tabs::-webkit-scrollbar {
+    display: none;
+  }
+}

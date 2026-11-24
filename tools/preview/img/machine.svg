@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Coffee machine">
+  <rect width="240" height="240" fill="#f6f5f3"/>
+  <!-- machine body -->
+  <rect x="78" y="34" width="84" height="150" rx="14" fill="#2b2b2e"/>
+  <rect x="78" y="34" width="84" height="40" rx="14" fill="#3a3a3f"/>
+  <!-- control dial -->
+  <circle cx="120" cy="54" r="9" fill="#a68a54"/>
+  <!-- group head / spout -->
+  <rect x="104" y="96" width="32" height="18" rx="4" fill="#4a4a50"/>
+  <rect x="116" y="112" width="8" height="14" fill="#6b6b70"/>
+  <!-- pouring coffee -->
+  <rect x="118" y="126" width="4" height="22" rx="2" fill="#6f4a2f"/>
+  <!-- cup -->
+  <path d="M96 150h48v14a16 16 0 0 1-16 16h-16a16 16 0 0 1-16-16z" fill="#ffffff" stroke="#d9d6d0" stroke-width="2"/>
+  <ellipse cx="120" cy="150" rx="24" ry="6" fill="#ffffff" stroke="#d9d6d0" stroke-width="2"/>
+  <ellipse cx="120" cy="150" rx="17" ry="4" fill="#6f4a2f"/>
+  <path d="M144 154h8a8 8 0 0 1 0 16h-6" fill="none" stroke="#d9d6d0" stroke-width="3"/>
+  <!-- base -->
+  <rect x="86" y="182" width="68" height="8" rx="4" fill="#3a3a3f"/>
+</svg>

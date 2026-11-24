@@ -3,25 +3,224 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 32px;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-m);
   background-color: var(--background-color);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.cards .cards-card-body {
-  margin: 16px;
+.cards > ul > li:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
 }
 
 .cards .cards-card-image {
   line-height: 0;
 }
 
-.cards > ul > li img {
+.cards .cards-card-image img {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: auto;
+}
+
+.cards .cards-card-body {
+  margin: 0;
+  padding: 22px 24px;
+  font-size: var(--body-font-size-s);
+}
+
+.cards .cards-card-body > *:first-child {
+  margin-top: 0;
+}
+
+.cards .cards-card-body > *:last-child {
+  margin-bottom: 0;
+}
+
+
+/* variation btm */
+
+/* stylelint-disable-next-line no-descending-specificity */
+.cards.img-btm li {
+      flex-direction: column-reverse;
+}
+
+/* ==========================================================================
+   WSU pathway-cards look, scoped to pages that carry a hero-video block
+   (the /westernsydney campaign page). Other pages keep the default cards.
+   Shield-masked image with a dotted shield pattern behind, centered copy and
+   a red pill CTA.
+   ========================================================================== */
+
+/* the local page authors all three blocks in one section, so give the
+   off-white backdrop to the cards wrapper alone (full-bleed), not the section,
+   which also holds the hero and banner. */
+main:has(.hero-video) .cards-wrapper {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 56px 0;
+  background: var(--wsu-pathway-background);
+}
+
+main:has(.hero-video) .cards {
+  --pw-shield-width: 250px;
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+main:has(.hero-video) .cards > ul {
+  grid-template-columns: 1fr;
+  gap: 48px 40px;
+  justify-items: center;
+}
+
+main:has(.hero-video) .cards > ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  max-width: 340px;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+  transition: none;
+}
+
+main:has(.hero-video) .cards > ul > li:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+main:has(.hero-video) .cards .cards-card-image {
+  position: relative;
+  width: var(--pw-shield-width);
+  max-width: 100%;
+  aspect-ratio: 340 / 424;
+  margin: 0 auto;
+  line-height: 0;
+}
+
+main:has(.hero-video) .cards .cards-card-image::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  right: -16px;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../icons/slider-carousel-shield-pattern.svg');
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+main:has(.hero-video) .cards .cards-card-image picture {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  /* stylelint-disable property-no-vendor-prefix -- Safari needs the prefix */
+  -webkit-mask-image: url('../../icons/slider-carousel-shield-mask.svg');
+  mask-image: url('../../icons/slider-carousel-shield-mask.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  /* stylelint-enable property-no-vendor-prefix */
+}
+
+main:has(.hero-video) .cards .cards-card-image img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: center top;
+}
+
+main:has(.hero-video) .cards .cards-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 80%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+main:has(.hero-video) .cards .cards-card-body p {
+  margin: 0;
+  font-family: var(--wsu-font);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--wsu-black);
+}
+
+main:has(.hero-video) .cards .cards-card-body p:has(a) {
+  margin-top: auto;
+}
+
+main:has(.hero-video) .cards .cards-card-body a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 249px;
+  max-width: 100%;
+  height: 49px;
+  padding: 0 32px;
+  border-radius: 999px;
+  background-color: var(--wsu-red);
+  color: var(--wsu-white);
+  font-family: var(--wsu-font);
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: none;
+  transition: opacity 0.2s ease;
+}
+
+main:has(.hero-video) .cards .cards-card-body a:hover {
+  opacity: 0.9;
+  color: var(--wsu-white);
+}
+
+@media (width >= 768px) {
+  main:has(.hero-video) .cards { --pw-shield-width: 220px; }
+
+  main:has(.hero-video) .cards > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (width >= 992px) {
+  main:has(.hero-video) .cards { --pw-shield-width: 250px; }
+}
+
+@media (width >= 1220px) {
+  main:has(.hero-video) .cards { --pw-shield-width: 280px; }
 }

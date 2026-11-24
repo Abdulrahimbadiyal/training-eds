@@ -1,9 +1,12 @@
 /* header and nav layout */
 header .nav-wrapper {
-  background-color: var(--background-color);
+  background-color: rgb(255 255 255 / 88%);
   width: 100%;
   z-index: 2;
   position: fixed;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: saturate(180%) blur(12px);
 }
 
 header nav {
@@ -32,7 +35,7 @@ header nav[aria-expanded='true'] {
 
 @media (width >= 900px) {
   header .nav-wrapper {
-    position: relative;
+    position: fixed;
   }
 
   header nav {
@@ -138,9 +141,11 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-m);
   font-weight: 700;
   line-height: 1;
+  letter-spacing: 0.01em;
 }
 
 header nav .nav-brand img {
@@ -183,19 +188,19 @@ header nav .nav-sections .nav-drop > button {
 header nav .nav-sections .nav-drop > button::after {
   content: '';
   position: absolute;
-  top: 0.5em;
+  top: 50%;
   right: 2px;
-  transform: rotate(135deg);
-  width: 6px;
-  height: 6px;
+  margin-top: -5px;
+  width: 7px;
+  height: 7px;
   border: 2px solid currentcolor;
-  border-radius: 0 1px 0 0;
   border-width: 2px 2px 0 0;
+  transform: rotate(135deg);
+  transition: transform 0.2s ease, margin-top 0.2s ease;
 }
 
 header nav .nav-sections .nav-drop > button[aria-expanded='true']::after {
-  top: unset;
-  bottom: 0.5em;
+  margin-top: -2px;
   transform: rotate(315deg);
 }
 
@@ -244,9 +249,12 @@ header nav .nav-sections .nav-drop > button[aria-expanded='false'] + ul {
     position: absolute;
     left: -24px;
     width: 200px;
-    top: 150%;
-    padding: 16px;
-    background-color: var(--light-color);
+    top: calc(150% + 6px);
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-s);
+    background-color: var(--background-color);
+    box-shadow: var(--shadow-md);
     white-space: initial;
   }
 
@@ -259,11 +267,17 @@ header nav .nav-sections .nav-drop > button[aria-expanded='false'] + ul {
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--light-color);
+    border-bottom: 8px solid var(--background-color);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
-    padding: 8px 0;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li:hover {
+    background-color: var(--light-color);
   }
 }
 
@@ -271,3 +285,320 @@ header nav .nav-sections .nav-drop > button[aria-expanded='false'] + ul {
 header nav .nav-tools {
   grid-area: tools;
 }
+
+/* sub-nav: secondary bar below the main nav, part of the fixed header */
+header .nav-subnav {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: var(--subnav-height);
+  max-width: 1264px;
+  margin: 0 auto;
+  padding: 0 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+header .nav-subnav .subnav-brand {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+header .nav-subnav .subnav-brand p {
+  margin: 0;
+  line-height: 0;
+}
+
+header .nav-subnav .subnav-brand img {
+  width: auto;
+  height: 26px;
+}
+
+header .nav-subnav .subnav-sections {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+header .nav-subnav .subnav-sections .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 28px;
+  margin: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+header .nav-subnav .subnav-sections .default-content-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+header .nav-subnav .subnav-sections p {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+header .nav-subnav .subnav-sections a:any-link {
+  position: relative;
+  display: inline-block;
+  padding: 3px 0;
+  color: var(--text-color);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+header .nav-subnav .subnav-sections a:any-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-color);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+header .nav-subnav .subnav-sections a:any-link:hover {
+  color: var(--accent-color);
+}
+
+header .nav-subnav .subnav-sections a:any-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* hide the sub-nav while the mobile menu overlay is open */
+header .nav-wrapper:has(nav[aria-expanded='true']) .nav-subnav {
+  display: none;
+}
+
+@media (width < 900px) {
+  header .nav-subnav .subnav-sections .default-content-wrapper {
+    justify-content: flex-start;
+  }
+}
+
+@media (width >= 900px) {
+  header .nav-subnav {
+    padding: 0 32px;
+  }
+}
+
+/* ==========================================================================
+   WSU campaign header, scoped to pages that carry a hero-video block
+   (the /westernsydney page). Reproduces the reference's two rows floating over
+   the hero: a charcoal action bar (Students / Staff / Library + search +
+   Contact us) above a transparent main nav (white WSU lockup + nav links).
+   Other pages keep the default header untouched.
+   ========================================================================== */
+
+/* stylelint-disable no-descending-specificity -- intentional page-scoped overrides */
+
+body:has(.hero-video) header {
+  height: 0;
+}
+
+body:has(.hero-video) header .nav-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  border-bottom: none;
+}
+
+/* ---- row 1: charcoal action bar (the global nav row) ---- */
+body:has(.hero-video) header nav {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 24px;
+  height: 44px;
+  max-width: none;
+  margin: 0;
+  padding: 0 0 0 32px;
+  background-color: #3a3537;
+}
+
+body:has(.hero-video) header nav .nav-hamburger {
+  display: none;
+  visibility: hidden;
+}
+
+/* Students / Staff / Library (mapped to the brand cell) */
+body:has(.hero-video) header .nav-brand {
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 44px;
+  font-family: var(--wsu-font);
+}
+
+body:has(.hero-video) header .nav-brand .default-content-wrapper ul {
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body:has(.hero-video) header .nav-brand a {
+  color: var(--wsu-white);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/* search + Contact us (mapped to the sections cell) */
+body:has(.hero-video) header nav .nav-sections {
+  display: flex;
+  visibility: visible;
+  flex: 0 0 auto;
+  align-items: stretch;
+  margin-left: auto;
+}
+
+body:has(.hero-video) header nav .nav-sections .default-content-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+}
+
+body:has(.hero-video) header nav .nav-sections ul {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body:has(.hero-video) header nav .nav-sections p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+body:has(.hero-video) header nav .nav-sections .icon-search {
+  width: 20px;
+  height: 20px;
+  margin: 0 20px;
+  filter: brightness(0) invert(1);
+}
+
+body:has(.hero-video) header nav .nav-sections p:has(a) {
+  align-items: stretch;
+}
+
+body:has(.hero-video) header nav .nav-sections a {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 24px;
+  background-color: var(--wsu-red);
+  color: var(--wsu-white);
+  font-family: var(--wsu-font);
+  font-size: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+body:has(.hero-video) header nav .nav-sections a::after {
+  content: 'Contact Us';
+  font-size: 14px;
+}
+
+body:has(.hero-video) header nav .nav-tools {
+  display: none;
+}
+
+/* ---- row 2: transparent main nav over the hero ---- */
+body:has(.hero-video) header .nav-subnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: auto;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 18px 32px;
+  background: transparent;
+  border-top: none;
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-brand {
+  flex: 0 0 auto;
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-brand img {
+  height: 44px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-sections .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin: 0;
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-sections a:any-link {
+  padding: 4px 0;
+  color: var(--wsu-white);
+  font-family: var(--wsu-font);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: none;
+  text-shadow: 0 1px 6px rgb(0 0 0 / 35%);
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-sections a:any-link::after {
+  background-color: var(--wsu-white);
+}
+
+body:has(.hero-video) header .nav-subnav .subnav-sections a:any-link:hover {
+  color: var(--wsu-white);
+}
+
+/* ---- mobile: collapse to logo + search, hide the wide rows ---- */
+@media (width < 992px) {
+  body:has(.hero-video) header nav {
+    padding: 0 16px;
+  }
+
+  body:has(.hero-video) header .nav-brand .default-content-wrapper ul {
+    gap: 16px;
+  }
+
+  body:has(.hero-video) header .nav-subnav {
+    padding: 12px 16px;
+  }
+
+  body:has(.hero-video) header .nav-subnav .subnav-sections {
+    display: none;
+  }
+
+  body:has(.hero-video) header .nav-subnav .subnav-brand img {
+    height: 34px;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */

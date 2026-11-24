@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recommends block preview</title>
+  <link rel="stylesheet" href="/styles/fonts.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/blocks/recommends/recommends.css">
+  <style>
+    /* minimal EDS section scaffolding so the block sits like it would on a page */
+    body { display: block; }
+    main > .section > div { max-width: 1200px; margin: auto; padding: 0 24px; }
+    .preview-title { margin: 32px 0 8px; }
+  </style>
+</head>
+<body class="appear">
+  <main>
+    <div class="section">
+      <div class="default-content-wrapper">
+        <h2 class="preview-title">Nespresso Recommends</h2>
+      </div>
+      <div class="recommends-wrapper">
+        <div class="recommends block" data-block-name="recommends" data-block-status="loaded"></div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import decorate from '/blocks/recommends/recommends.js';
+
+    // empty on purpose: exercises the block's built-in image placeholder
+    const M = '';
+    const IMG = {
+      vertuoPop: M, vertuoUp: M, essenza: M, inissia: M,
+    };
+
+    const data = [
+      { tab: 'Coffee Machines' },
+      [IMG.vertuoPop, 'Vertuo', '50% Off', 'Vertuo Pop Spicy Red', 'Our smallest, most stylish Vertuo, available in 5 colors', 'IDR 2.649.500', 'IDR 5.299.000'],
+      [IMG.vertuoUp, 'Vertuo', '25% Off', 'Vertuo Up - Pearl White', 'Our newest Vertuo, with 7 coffee sizes', 'IDR 5.624.250', 'IDR 7.499.000'],
+      [IMG.essenza, 'Original', '50% Off', 'Essenza Mini Piano Black', 'Smallest & lightest', 'IDR 1.649.500', 'IDR 3.299.000'],
+      [IMG.inissia, 'Original', '25% Off', 'Inissia Red', 'Compact design', 'IDR 2.999.250', 'IDR 3.999.000'],
+      [IMG.vertuoUp, 'Vertuo', '25% Off', 'Lattissima One White', 'Convenient & compact', 'IDR 6.899.250', 'IDR 9.199.000'],
+      { tab: 'Coffee' },
+      [IMG.essenza, 'Vertuo', '20% Off', 'Melozio', 'Smooth & balanced, 10 capsules', 'IDR 112.000', 'IDR 140.000'],
+      [IMG.inissia, 'Original', '15% Off', 'Ispirazione Roma', 'Well-balanced, 10 capsules', 'IDR 102.000', 'IDR 120.000'],
+      [IMG.vertuoPop, 'Vertuo', '20% Off', 'Stormio', 'Intense & full-bodied, 10 capsules', 'IDR 112.000', 'IDR 140.000'],
+      { tab: 'Accessories' },
+      [IMG.vertuoUp, 'Original', '30% Off', 'Aeroccino4', 'Hot & cold milk frother', 'IDR 1.399.000', 'IDR 1.999.000'],
+      [IMG.essenza, 'Original', '10% Off', 'View Recipe Glasses', 'Set of 2 double-wall glasses', 'IDR 450.000', 'IDR 500.000'],
+    ];
+
+    const block = document.querySelector('.recommends');
+    // compact 2-column authoring: [image] | [range, discount, title, desc, price, original as lines]
+    data.forEach((entry) => {
+      const row = document.createElement('div');
+      if (Array.isArray(entry)) {
+        const [img, range, discount, title, desc, price, ori] = entry;
+        const imgCell = document.createElement('div');
+        if (img) {
+          const pic = document.createElement('picture');
+          const im = document.createElement('img');
+          im.src = img; im.alt = title || ''; im.loading = 'lazy';
+          pic.append(im); imgCell.append(pic);
+        }
+        const content = document.createElement('div');
+        [range, discount, title, desc, price, ori].forEach((line) => {
+          const p = document.createElement('p');
+          p.textContent = line || '';
+          content.append(p);
+        });
+        row.append(imgCell, content);
+      } else {
+        const cell = document.createElement('div');
+        cell.textContent = entry.tab;
+        row.append(cell, document.createElement('div'));
+      }
+      block.append(row);
+    });
+
+    decorate(block);
+  </script>
+</body>
+</html>

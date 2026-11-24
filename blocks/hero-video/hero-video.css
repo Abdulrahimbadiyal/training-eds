@@ -1,0 +1,232 @@
+/* WSU Hero Video block. Full-viewport looping video with the brand shield,
+   stacked display headline and a red pill CTA. */
+
+main .hero-video {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  color: var(--wsu-white);
+  background-color: var(--wsu-black);
+}
+
+main .hero-video-wrapper,
+main .hero-video-container > div {
+  max-width: unset;
+  padding: 0;
+}
+
+/* media layer */
+main .hero-video-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+main .hero-video-media .hero-video-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* readability scrim over the footage */
+main .hero-video-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(0 0 0 / 35%) 0%, rgb(0 0 0 / 25%) 45%, rgb(0 0 0 / 45%) 100%);
+}
+
+/* content layer: shield + headline, centered as a group */
+main .hero-video-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  box-sizing: border-box;
+}
+
+main .hero-video-content picture {
+  flex: none;
+  display: block;
+  width: 300px;
+  max-width: 30%;
+}
+
+main .hero-video-content picture img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+main .hero-video-text {
+  max-width: 60%;
+}
+
+main .hero-video-text :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-family: var(--wsu-font);
+  font-size: clamp(56px, 9vw, 96px);
+  font-weight: 500;
+  line-height: 0.9;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 45%);
+  color: var(--wsu-white);
+}
+
+main .hero-video-text .hero-video-line {
+  display: block;
+}
+
+main .hero-video-text em {
+  font-family: var(--wsu-font-serif);
+  font-style: italic;
+}
+
+/* red pill CTA */
+main .hero-video-text .hero-video-button {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 20px 24px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--wsu-red);
+  color: var(--wsu-white);
+  font-family: var(--wsu-font);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: none;
+  transition: background-color 0.2s ease;
+}
+
+main .hero-video-text .hero-video-button:hover,
+main .hero-video-text .hero-video-button:focus-visible {
+  background-color: var(--wsu-black);
+  color: var(--wsu-white);
+}
+
+/* scroll-down chevron */
+main .hero-video-scroll {
+  position: absolute;
+  z-index: 3;
+  inset-inline-start: 50%;
+  inset-block-end: 40px;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgb(255 255 255 / 25%);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.6s ease 1.2s, background-color 0.3s ease;
+}
+
+main .hero-video-scroll:hover {
+  background-color: rgb(255 255 255 / 35%);
+}
+
+main .hero-video-scroll:focus-visible {
+  outline: 2px solid var(--wsu-white);
+  outline-offset: 2px;
+}
+
+main .hero-video-content.is-visible ~ .hero-video-scroll {
+  opacity: 1;
+}
+
+main .hero-video-scroll .arrow-icon {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 10px;
+}
+
+main .hero-video-scroll .arrow-icon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 3px solid var(--wsu-white);
+  border-bottom: 3px solid var(--wsu-white);
+  transform: translate(-50%, -65%) rotate(45deg);
+}
+
+/* entrance reveal */
+@media (prefers-reduced-motion: no-preference) {
+  main .hero-video-content picture,
+  main .hero-video-text :is(h1, h2, h3, h4, h5, h6):not(:has(.hero-video-line)),
+  main .hero-video-text .hero-video-line,
+  main .hero-video-text .hero-video-button {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  main .hero-video-content picture { transition-delay: 0.05s; }
+  main .hero-video-text .hero-video-line:nth-child(1) { transition-delay: 0.15s; }
+  main .hero-video-text .hero-video-line:nth-child(2) { transition-delay: 0.25s; }
+  main .hero-video-text .hero-video-line:nth-child(3) { transition-delay: 0.35s; }
+  main .hero-video-text .hero-video-button { transition-delay: 0.45s; }
+
+  main .hero-video-content.is-visible picture,
+  main .hero-video-content.is-visible .hero-video-text :is(h1, h2, h3, h4, h5, h6):not(:has(.hero-video-line)),
+  main .hero-video-content.is-visible .hero-video-text .hero-video-line,
+  main .hero-video-content.is-visible .hero-video-text .hero-video-button {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  main .hero-video-content.is-visible ~ .hero-video-scroll {
+    animation: hero-video-bounce 2s infinite ease-in-out;
+  }
+}
+
+@keyframes hero-video-bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+@media (width >= 990px) {
+  main .hero-video-scroll {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (width <= 600px) {
+  main .hero-video-text :is(h1, h2, h3, h4, h5, h6) {
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  main .hero-video-text {
+    max-width: unset;
+  }
+
+  main .hero-video-content {
+    gap: 1.5rem;
+  }
+}
