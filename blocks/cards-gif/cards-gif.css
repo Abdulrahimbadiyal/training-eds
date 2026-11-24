@@ -1,0 +1,273 @@
+/* WSU "International Study" crimson statement, image on the right. */
+
+.cards-gif {
+  --cards-gif-shield-width: 400px;
+
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  color: var(--wsu-white);
+  background-color: var(--wsu-crimson);
+}
+
+/* full-bleed */
+.section:has(.cards-gif-wrapper) {
+  display: block;
+}
+
+main > .section > div.cards-gif-wrapper {
+  width: 100vw;
+  max-width: none;
+  margin: 0;
+  margin-left: calc(-50vw + 50%);
+  padding: 0;
+}
+
+.cards-gif-content {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: center;
+  height: 100dvh;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 80px;
+  box-sizing: border-box;
+}
+
+/* text side (left) */
+.cards-gif .text-container {
+  position: relative;
+  z-index: 2;
+  grid-column: 1;
+  max-width: 850px;
+  color: var(--wsu-white);
+}
+
+.cards-gif .text-container .cards-gif-heading {
+  position: relative;
+  z-index: 2;
+  max-width: 570px;
+  margin: 0;
+  font-family: var(--wsu-font-book);
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 55px;
+  color: var(--wsu-white);
+}
+
+.cards-gif .text-container .button-container {
+  margin-top: 32px;
+}
+
+.cards-gif .text-container .button-container .button {
+  display: inline-block;
+  padding: 15px 32px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--wsu-red);
+  color: var(--wsu-white);
+  font-family: var(--wsu-font);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+/* image side (right), shield-masked */
+.cards-gif .image-container {
+  position: relative;
+  z-index: 2;
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cards-gif .image-container picture {
+  position: relative;
+  z-index: 3;
+  display: block;
+  width: var(--cards-gif-shield-width);
+  max-width: 100%;
+  aspect-ratio: 340 / 424;
+  overflow: hidden;
+
+  /* stylelint-disable property-no-vendor-prefix -- Safari needs the prefix */
+  -webkit-mask-image: url('../../icons/slider-carousel-shield-mask.svg');
+  mask-image: url('../../icons/slider-carousel-shield-mask.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  /* stylelint-enable property-no-vendor-prefix */
+}
+
+.cards-gif .image-container img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* dot pattern, on the text (left) side for the image-right layout */
+.cards-gif .dot-pattern {
+  position: absolute;
+  top: -75px;
+  left: 0;
+  z-index: 0;
+  width: 50%;
+  max-width: 400px;
+  height: 100%;
+  max-height: 590px;
+  background-image: url('../../icons/dot-pattern.png');
+  background-repeat: repeat;
+  background-position: left center;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* scroll chevron */
+.cards-gif .scroll-arrow {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: rgb(255 255 255 / 25%);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.6s ease 1.2s, background-color 0.3s ease;
+}
+
+.cards-gif .scroll-arrow:hover {
+  background-color: rgb(255 255 255 / 35%);
+}
+
+.cards-gif .scroll-arrow .arrow-icon {
+  position: relative;
+  display: block;
+  width: 20px;
+  height: 10px;
+}
+
+.cards-gif .scroll-arrow .arrow-icon::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-right: 3px solid var(--wsu-white);
+  border-bottom: 3px solid var(--wsu-white);
+  transform: translate(-50%, -65%) rotate(45deg);
+}
+
+.cards-gif.animate-in .scroll-arrow {
+  opacity: 1;
+  animation: cards-gif-bounce 2s infinite ease-in-out;
+}
+
+@keyframes cards-gif-bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-10px); }
+  60% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* desktop slide-in: text from left, image from right */
+@media (width >= 992px) {
+  .cards-gif .text-container {
+    transform: translateX(-120%);
+    opacity: 0;
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1.2s ease-out;
+  }
+
+  .cards-gif .image-container {
+    transform: translateX(120%);
+    opacity: 0;
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 1.2s ease-out;
+  }
+
+  .cards-gif.animate-in .text-container,
+  .cards-gif.animate-in .image-container {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (width >= 992px) and (width < 1520px) {
+  .cards-gif {
+    --cards-gif-shield-width: 350px;
+  }
+}
+
+@media (width < 1300px) {
+  .cards-gif .dot-pattern {
+    display: none;
+  }
+}
+
+/* tablet / mobile: stack image then text */
+@media (width < 992px) {
+  .cards-gif {
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .cards-gif-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: auto;
+    min-height: 90dvh;
+    padding: 72px 20px 60px;
+  }
+
+  .cards-gif .image-container {
+    order: 1;
+    justify-content: center;
+  }
+
+  .cards-gif .image-container picture {
+    width: 300px;
+  }
+
+  .cards-gif .text-container {
+    order: 2;
+  }
+
+  .cards-gif .text-container .cards-gif-heading {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .cards-gif .scroll-arrow {
+    bottom: 12px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-gif .text-container,
+  .cards-gif .image-container {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+
+  .cards-gif.animate-in .scroll-arrow {
+    animation: none;
+  }
+}

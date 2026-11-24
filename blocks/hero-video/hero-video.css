@@ -99,7 +99,10 @@ main .hero-video-text em {
 
 /* red pill CTA */
 main .hero-video-text .hero-video-button {
+  position: relative;
+  z-index: 1;
   display: inline-block;
+  overflow: hidden;
   margin-top: 28px;
   padding: 20px 24px;
   border: none;
@@ -112,13 +115,31 @@ main .hero-video-text .hero-video-button {
   line-height: 1;
   text-decoration: none;
   text-transform: none;
-  transition: background-color 0.2s ease;
+  transition: color 0.3s ease;
+}
+
+/* black fill wipes across on hover, matching the reference button */
+main .hero-video-text .hero-video-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--wsu-black);
+  transition: width 0.3s ease;
 }
 
 main .hero-video-text .hero-video-button:hover,
 main .hero-video-text .hero-video-button:focus-visible {
-  background-color: var(--wsu-black);
   color: var(--wsu-white);
+}
+
+main .hero-video-text .hero-video-button:hover::after,
+main .hero-video-text .hero-video-button:focus-visible::after {
+  width: 100%;
 }
 
 /* scroll-down chevron */

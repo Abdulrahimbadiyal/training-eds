@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Products block preview</title>
+  <link rel="stylesheet" href="/styles/fonts.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/blocks/products/products.css">
+  <style>
+    body { display: block; }
+    main > .section > div { max-width: 1200px; margin: auto; padding: 32px 24px; }
+  </style>
+</head>
+<body class="appear">
+  <main>
+    <div class="section">
+      <div class="products-wrapper">
+        <div class="products block" data-block-name="products" data-block-status="loaded"></div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import decorate from '/blocks/products/products.js';
+
+    // mirrors the authored key/value rows
+    const rows = [
+      ['heading', 'Products Catalogue'],
+      ['base-url', 'https://dummyjson.com'],
+      ['all-products', '/products'],
+    ];
+
+    const block = document.querySelector('.products');
+    rows.forEach(([key, value]) => {
+      const row = document.createElement('div');
+      const k = document.createElement('div');
+      k.textContent = key;
+      const v = document.createElement('div');
+      v.textContent = value;
+      row.append(k, v);
+      block.append(row);
+    });
+
+    decorate(block);
+  </script>
+</body>
+</html>

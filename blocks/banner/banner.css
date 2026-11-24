@@ -137,7 +137,10 @@ main > .section > div.banner-wrapper {
 }
 
 .banner .text-container .button-container .button {
+  position: relative;
+  z-index: 1;
   display: inline-block;
+  overflow: hidden;
   padding: 15px 32px;
   border: none;
   border-radius: 999px;
@@ -149,12 +152,29 @@ main > .section > div.banner-wrapper {
   line-height: 1.2;
   text-decoration: none;
   text-transform: none;
-  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+/* black fill wipes across on hover, matching the reference button */
+.banner .text-container .button-container .button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 0;
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--wsu-black);
+  transition: width 0.3s ease;
 }
 
 .banner .text-container .button-container .button:hover {
-  background-color: var(--wsu-black);
   color: var(--wsu-white);
+}
+
+.banner .text-container .button-container .button:hover::after {
+  width: 100%;
 }
 
 /* scroll chevron */

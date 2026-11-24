@@ -103,7 +103,10 @@ main > .section > div.scroll-slider-wrapper {
 }
 
 .scroll-slider .scroll-slider-left .button {
+  position: relative;
+  z-index: 1;
   display: inline-block;
+  overflow: hidden;
   padding: 16px 32px;
   background-color: var(--wsu-orange, #ff5c5e);
   color: var(--wsu-black, #262223);
@@ -113,6 +116,28 @@ main > .section > div.scroll-slider-wrapper {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* white fill wipes across on hover, matching the reference rich-background button */
+.scroll-slider .scroll-slider-left .button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 0;
+  height: 100%;
+  background-color: var(--wsu-white, #fff);
+  transition: width 0.3s ease;
+}
+
+.scroll-slider .scroll-slider-left .button:hover {
+  color: var(--wsu-orange, #ff5c5e);
+}
+
+.scroll-slider .scroll-slider-left .button:hover::after {
+  width: 100%;
 }
 
 /* shield image, centre of the wide column */
