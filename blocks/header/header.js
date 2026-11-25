@@ -1,5 +1,38 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
+import { cartCount, onCartChange } from '../../scripts/cart.js';
+
+/**
+ * Builds the cart control (icon + live count badge) and keeps it in sync.
+ * @returns {HTMLElement} a <p> wrapper holding the cart link
+ */
+function buildCartControl() {
+  const wrap = document.createElement('p');
+  wrap.className = 'nav-cart-wrap';
+  const link = document.createElement('a');
+  link.className = 'nav-cart';
+  link.href = '/cart';
+  link.setAttribute('aria-label', 'View cart');
+  link.innerHTML = `
+    <svg class="nav-cart-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M3 3h2l2.4 12.3a2 2 0 0 0 2 1.7h7.7a2 2 0 0 0 2-1.6L23 8H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="10" cy="20" r="1.6" fill="currentColor"/>
+      <circle cx="18" cy="20" r="1.6" fill="currentColor"/>
+    </svg>
+    <span class="nav-cart-count" aria-hidden="true">0</span>`;
+  wrap.append(link);
+
+  const countEl = link.querySelector('.nav-cart-count');
+  const render = () => {
+    const n = cartCount();
+    countEl.textContent = n;
+    link.classList.toggle('has-items', n > 0);
+    link.setAttribute('aria-label', n > 0 ? `View cart, ${n} item${n === 1 ? '' : 's'}` : 'View cart');
+  };
+  render();
+  onCartChange(render);
+  return wrap;
+}
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -140,6 +173,17 @@ export default async function decorate(block) {
     });
   }
 
+  // cart control, placed in the action bar before the Contact link
+  if (navSections) {
+    const cart = buildCartControl();
+    const wrapper = navSections.querySelector('.default-content-wrapper');
+    const contactP = wrapper
+      && [...wrapper.querySelectorAll(':scope > p')].find((p) => p.querySelector('a'));
+    if (wrapper && contactP) wrapper.insertBefore(cart, contactP);
+    else if (wrapper) wrapper.append(cart);
+    else navSections.append(cart);
+  }
+
   // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
@@ -171,6 +215,19 @@ export default async function decorate(block) {
       if (section) section.classList.add(c);
     });
     while (subnavFragment.firstElementChild) subnav.append(subnavFragment.firstElementChild);
+
+    // make the WSU lockup link to the storefront homepage
+    const brand = subnav.querySelector('.subnav-brand');
+    if (brand && !brand.querySelector('a')) {
+      const home = getMetadata('home') || '/westernsydney';
+      const link = document.createElement('a');
+      link.className = 'subnav-brand-link';
+      link.href = home;
+      link.setAttribute('aria-label', 'Western Sydney University home');
+      while (brand.firstChild) link.append(brand.firstChild);
+      brand.append(link);
+    }
+
     navWrapper.append(subnav);
   }
 

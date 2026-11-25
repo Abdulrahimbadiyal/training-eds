@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slider carousel preview</title>
+  <link rel="stylesheet" href="/styles/fonts.css">
+  <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/blocks/slider-carousel/slider-carousel.css">
+  <style>
+    body { display: block; }
+    main > .section > div.slider-carousel-wrapper { max-width: 1200px; margin: auto; padding: 24px; }
+  </style>
+</head>
+<body class="appear">
+  <main>
+    <div class="section wsu-section slider-carousel-container">
+      <div class="slider-carousel-wrapper">
+        <div class="slider-carousel shield brand-refresh block" data-block-name="slider-carousel" data-block-status="loaded"></div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import decorate from '/blocks/slider-carousel/slider-carousel.js';
+
+    const schools = [
+      ['School of Arts', 'https://www.westernsydney.edu.au/schools/sohca', 'https://main--westernsydney--wsu-do.aem.page/drafts/vijay/media_195e377d92a35971dfaca42f1bb0845b716a53a0b.png?width=750&format=png&optimize=medium'],
+      ['School of Built Environment and Design', 'https://www.westernsydney.edu.au/schools/built-environment', 'https://main--westernsydney--wsu-do.aem.page/drafts/vijay/media_1568450f4dd6bfa49c1105957651d715a443b26b9.png?width=750&format=png&optimize=medium'],
+      ['School of Business', 'https://www.westernsydney.edu.au/schools/sobus', 'https://picsum.photos/seed/business/300/350'],
+      ['School of Computer, Data and Mathematical Sciences', 'https://www.westernsydney.edu.au/schools/socdms', 'https://picsum.photos/seed/cdms/300/350'],
+      ['School of Education', 'https://www.westernsydney.edu.au/schools/soed', 'https://picsum.photos/seed/edu/300/350'],
+      ['School of Engineering', 'https://www.westernsydney.edu.au/schools/engineering', 'https://picsum.photos/seed/eng/300/350'],
+      ['School of Health Sciences', 'https://www.westernsydney.edu.au/schools/sohs', 'https://picsum.photos/seed/health/300/350'],
+    ];
+
+    const block = document.querySelector('.slider-carousel');
+
+    function configRow(key, html) {
+      const row = document.createElement('div');
+      const k = document.createElement('div');
+      k.textContent = key;
+      const v = document.createElement('div');
+      v.innerHTML = html;
+      row.append(k, v);
+      return row;
+    }
+    function cardRow(name, href, img) {
+      const row = document.createElement('div');
+      const imgCell = document.createElement('div');
+      imgCell.innerHTML = `<p><a href="${href}" title="${name}"><picture><img loading="lazy" alt="" src="${img}" width="300" height="350"></picture></a></p>`;
+      const txtCell = document.createElement('div');
+      txtCell.innerHTML = `<p>${name}</p>`;
+      row.append(imgCell, txtCell);
+      return row;
+    }
+
+    block.append(configRow('slider-title', '<h2 id="schools">Schools at Western Sydney</h2>'));
+    block.append(configRow('slider-button', '<a href="https://www.westernsydney.edu.au/schools">View All Schools</a>'));
+    schools.forEach(([n, h, i]) => block.append(cardRow(n, h, i)));
+
+    decorate(block);
+  </script>
+</body>
+</html>

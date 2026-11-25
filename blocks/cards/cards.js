@@ -16,7 +16,8 @@ function classifyCells(li) {
 function cardFromCell(cell) {
   const li = document.createElement('li');
   const picture = cell.querySelector('picture');
-
+  console.log('picture', picture);
+  console.log('picture cell', cell);
   const image = document.createElement('div');
   image.className = 'cards-card-image';
   image.append(picture);
@@ -25,6 +26,7 @@ function cardFromCell(cell) {
   const body = document.createElement('div');
   body.className = 'cards-card-body';
   [...cell.childNodes].forEach((node) => {
+    console.log('cell', cell);
     if (node.nodeType !== Node.TEXT_NODE || node.textContent.trim()) body.append(node);
   });
   if (body.childNodes.length) li.append(body);

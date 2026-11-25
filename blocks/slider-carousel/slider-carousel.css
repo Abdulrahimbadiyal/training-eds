@@ -1,0 +1,252 @@
+/* WSU "Schools at Western Sydney" slider carousel. */
+
+/* off-white band, full width; content stays centered */
+.section:has(.slider-carousel-wrapper) {
+  background-color: var(--wsu-off-white, #f2f2f2);
+}
+
+.slider-carousel {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 0;
+  color: var(--wsu-black, #262223);
+}
+
+/* header: title left, "view all" button right */
+.slider-carousel .slider-carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 60px;
+}
+
+.slider-carousel .slider-carousel-title {
+  margin: 0;
+}
+
+.slider-carousel .slider-carousel-title :is(h1, h2, h3, h4, h5, h6, p) {
+  margin: 0;
+  font-family: var(--wsu-font);
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 60px;
+  color: var(--wsu-red, #ed0033);
+}
+
+.slider-carousel .slider-carousel-viewall-wrap {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.slider-carousel .slider-carousel-viewall.button {
+  padding: 20px 24px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--wsu-accent-red, #f03);
+  color: var(--wsu-white, #fff);
+  font-family: var(--wsu-font);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* viewport clips, track slides */
+.slider-carousel .slider-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.slider-carousel .slider-carousel-track {
+  --spv: 3;
+
+  display: flex;
+  gap: 40px;
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+.slider-carousel .slider-carousel-slide {
+  flex: 0 0 calc((100% - (var(--spv) - 1) * 40px) / var(--spv));
+  display: flex;
+  flex-direction: column;
+}
+
+/* shield image with the dotted pattern peeking behind it */
+.slider-carousel .slider-carousel-image {
+  position: relative;
+  width: 252px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.slider-carousel .slider-carousel-image::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 40px;
+  z-index: 0;
+  width: 252px;
+  height: 314px;
+  max-width: 100%;
+  background-image: url('../../icons/slider-carousel-shield-pattern.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+}
+
+.slider-carousel .slider-carousel-image p {
+  margin: 0;
+}
+
+.slider-carousel .slider-carousel-image a {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.slider-carousel .slider-carousel-image picture {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 252px;
+  max-width: 100%;
+  aspect-ratio: 300 / 350;
+  overflow: hidden;
+
+  /* stylelint-disable property-no-vendor-prefix -- Safari needs the prefix */
+  -webkit-mask-image: url('../../icons/slider-carousel-shield-mask.svg');
+  mask-image: url('../../icons/slider-carousel-shield-mask.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  /* stylelint-enable property-no-vendor-prefix */
+}
+
+.slider-carousel .slider-carousel-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* card text under the shield, centered */
+.slider-carousel .slider-carousel-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.slider-carousel .slider-carousel-content :is(h1, h2, h3, h4, h5, h6, p) {
+  margin: 0;
+  font-family: var(--wsu-font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--wsu-black, #262223);
+}
+
+.slider-carousel .slider-carousel-content .button-container {
+  margin-top: 8px;
+}
+
+/* controls row: back pill, centered dots, next pill */
+.slider-carousel .slider-carousel-controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 80px;
+}
+
+.slider-carousel .slider-carousel-pagination {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.slider-carousel .slider-carousel-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--wsu-red, #ed0033);
+  opacity: 0.35;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.slider-carousel .slider-carousel-dot-active {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.slider-carousel .slider-carousel-prev.button,
+.slider-carousel .slider-carousel-next.button {
+  flex: 0 0 auto;
+  padding: 20px 24px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--wsu-accent-red, #f03);
+  color: var(--wsu-white, #fff);
+  font-family: var(--wsu-font);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.slider-carousel .slider-carousel-prev.button:disabled,
+.slider-carousel .slider-carousel-next.button:disabled {
+  opacity: 0.35;
+}
+
+/* tablet */
+@media (width < 1100px) {
+  .slider-carousel .slider-carousel-title :is(h1, h2, h3, h4, h5, h6, p) {
+    font-size: 36px;
+    line-height: 44px;
+  }
+}
+
+/* mobile: stack the header, shrink controls */
+@media (width < 700px) {
+  .slider-carousel {
+    padding: 24px 0;
+  }
+
+  .slider-carousel .slider-carousel-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 36px;
+  }
+
+  .slider-carousel .slider-carousel-title :is(h1, h2, h3, h4, h5, h6, p) {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .slider-carousel .slider-carousel-controls {
+    margin-top: 48px;
+  }
+
+  .slider-carousel .slider-carousel-prev.button,
+  .slider-carousel .slider-carousel-next.button {
+    padding: 14px 18px;
+    font-size: 14px;
+  }
+}
